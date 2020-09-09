@@ -5,30 +5,27 @@ import CollectionOverviewContainer from "../../components/collection-overview/co
 import CollectionPageContainer from "../../pages/CollectionPage/collection.container";
 import { Route } from "react-router-dom";
 import "./shop.styles.scss";
+import { useEffect } from "react";
 
-class ShopPage extends React.Component {
-  componentDidMount() {
-    const { fetchCollections } = this.props;
+const ShopPage = ({ fetchCollections, match }) => {
+  useEffect(() => {
     fetchCollections();
-  }
-  render() {
-    const { match } = this.props;
-    return (
-      <div>
-        <Route
-          exact
-          path={`${match.path}`}
-          component={CollectionOverviewContainer}
-        />
-        <Route
-          exact
-          path={`${match.path}/:collectionId`}
-          component={CollectionPageContainer}
-        />
-      </div>
-    );
-  }
-}
+  }, [fetchCollections]);
+  return (
+    <div>
+      <Route
+        exact
+        path={`${match.path}`}
+        component={CollectionOverviewContainer}
+      />
+      <Route
+        exact
+        path={`${match.path}/:collectionId`}
+        component={CollectionPageContainer}
+      />
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCollections: () => dispatch(fetchCollectionStart()),
