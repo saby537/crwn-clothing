@@ -8,9 +8,8 @@ const StripeCheckoutButton = ({ price }) => {
     "pk_test_51HHwGzBrhswYPyxgewHOPVKDCRTTNHCvLEcWeCQcSNemdVHz4shEpoRY4gKpKSjegKnDRGRrt0bCuuwsB5G20Cea009jKConVB";
 
   const onToken = (token) => {
-    console.log(token);
     axios({
-      url: "http://localhost:5000/payment",
+      url: "payment",
       method: "post",
       data: {
         amount: stripePrice,
@@ -19,7 +18,7 @@ const StripeCheckoutButton = ({ price }) => {
     })
       .then((response) => alert("Payment Successful!!"))
       .catch((error) => {
-        console.log("Payment Error: ", JSON.parse(error));
+        console.log("Payment Error: ", error);
         alert("There was an issue with Payment. Please use proper Credit Card");
       });
   };
