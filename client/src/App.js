@@ -6,6 +6,7 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { checkSession } from "./redux/user/user.actions";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner.component";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import "./App.css";
 
 const Homepage = lazy(() => import("./pages/Homepage/homepage.component"));
@@ -25,17 +26,19 @@ const App = ({ checkSession, currentUser }) => {
 		<div className="App">
 			<Header />
 			<Switch>
-				<Suspense fallback={<LoadingSpinner />}>
-					<Route exact path="/" component={Homepage} />
-					<Route path="/shop" component={ShopPage} />
-					<Route exact path="/checkout" component={CheckoutPage} />
-					<Route
-						path="/signin"
-						component={() =>
-							currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
-						}
-					/>
-				</Suspense>
+				<ErrorBoundary>
+					<Suspense fallback={<LoadingSpinner />}>
+						<Route exact path="/" component={Homepage} />
+						<Route path="/shop" component={ShopPage} />
+						<Route exact path="/checkout" component={CheckoutPage} />
+						<Route
+							path="/signin"
+							component={() =>
+								currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+							}
+						/>
+					</Suspense>
+				</ErrorBoundary>
 			</Switch>
 		</div>
 	);

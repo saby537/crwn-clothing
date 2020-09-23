@@ -8,26 +8,26 @@ import "./shop.styles.scss";
 import { useEffect } from "react";
 
 const ShopPage = ({ fetchCollections, match }) => {
-  useEffect(() => {
-    fetchCollections();
-  }, [fetchCollections]);
-  return (
-    <div>
-      <Route
-        exact
-        path={`${match.path}`}
-        component={CollectionOverviewContainer}
-      />
-      <Route
-        exact
-        path={`${match.path}/:collectionId`}
-        component={CollectionPageContainer}
-      />
-    </div>
-  );
+	useEffect(() => {
+		fetchCollections();
+	}, [fetchCollections]);
+	return (
+		<div>
+			<Route
+				exact
+				path={`${match.path}`}
+				component={CollectionOverviewContainer}
+			/>
+			<Route
+				exact
+				path={`${match.path}/:collectionId`}
+				component={CollectionPageContainer}
+			/>
+		</div>
+	);
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCollections: () => dispatch(fetchCollectionStart()),
+	fetchCollections: () => dispatch(fetchCollectionStart()),
 });
 export default connect(null, mapDispatchToProps)(ShopPage);
